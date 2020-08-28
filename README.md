@@ -2,49 +2,43 @@
 
 ### <span style="text-decoration:underline;">Overview</span>
 
-To Onboard users in an organization, Some big organizations provisions users to Microsoft active directory. Users do not get the system until day 1. Companies needs to provision these accounts ahead of time and send an email to users manager with one time password.
+Many organizations use Microsoft Active Directory to manage user credentials. While Okta’s AD integration allows provisioning users to AD, organizations need a solution to communicate the account credentials to the user. When onboarding new hires, companies may need to set up these accounts ahead of time. However, the user may not have system or email access until the day of joining. In these scenarios, companies can email the account credentials to the user’s manager with a one-time password. This template helps demonstrate how to identify users being added to Active Directory using Okta’s “User Assigned to Application” event, fetch manager’s email address and send email notification. 
 
-This flow adds the look for events when the user is pushed to activedirectory. This is set by Okta event added to application. On this event Okta goes to generate a one time password using Expire password API with tempPassword=true flag.
-
+The flow leverages Okta’s Expire Password API is to set a one-time password using the tempPassword=true flag: 
 https://developer.okta.com/docs/reference/api/users/?_ga=2.144064246.2110324271.1598044957-208344352.1593389880#expire-password
 
     
-    
 ### <span style="text-decoration:underline;">Before you get Started / Prerequisites</span>
+
 Before you get started, you will need:
 
-Access to an Okta tenant with Okta Workflows enabled for your org
-Integrated with Active directory and enabled Active directory provisioning.
-Setup user profile in Okta with proper manager username or manager email address. So that workflow can send to right manager.
-Your organization should use Office 365 or Google email. 
-If your organization uses O365 or google for email, Create a service mailbox that can be linked in Okta workflows to send email.
+Access to an Okta tenant with Okta Workflows enabled for your org 
+Integration with Active directory and Active directory provisioning enabled. 
+User profile in Okta with manager username or manager email address. 
+Service mailbox that can be configured in Okta Workflows as the sender’s email address.
+
 
 
 ### <span style="text-decoration:underline;">Setup Steps</span>
 
-1.Import the flopack in your workflow environment.
-2.Setup a connection to Okta tenant.
-3.Setup a Mail connection to O365 or google.
-4.Open the AD activation flow and point the first card to the right AD APP in Okta.
-
-![image](https://user-images.githubusercontent.com/14205843/90942085-12b4ec80-e3c9-11ea-83dc-89ae71eff88e.png)
-
-5. Flow reads the existing user managerID from the user's profile and read the manager profile in Okta to grab the Manager emailAddress.
-
-![image](https://user-images.githubusercontent.com/14205843/90942290-07ae8c00-e3ca-11ea-831e-87f783211322.png)
-
-**If you have manager email address directory in the user profile. You can directly read that using the first read card and map the fields for email address in subsequient cards.**
-
-6.In the end of the flow change the subject and body based on your company requirement. You can also construct the Body in html inside the compose card.
-7.If you use O365 change the connection in the final O365 card. If you use Google remove the O365 card and add Google mail.
-8.Activate the workflow
+1) Setup a connection to your Okta tenant. 
+2) Setup a mail connection to O365 or google.
+3) Select the “AD-Activation” flow from the folder.
+4) In the event card, select the ‘options’ and choose the ‘active_directory’ application. Select the desired instance of Active Directory where the user will be  provisioned.
+5) In the ‘Get Assigned User for Application’ card, select the ‘options’ and choose the Active Directory application name from the dropdown. 
+6) Modify the email ‘Subject’ and ‘Body’ content that is configured using ‘Text-Compose’ cards, as needed. You can also construct the ‘Body’ in html format inside the ‘Text-Compose’ card. 
+7) Populate the managerID in Okta user profile with proper manager Okta Username.
+8) If you use O365 update the connection in the final O365 card. If you use Google remove the O365 card and add Gmail card and use sendEmail. 
+9) Click Save. Be sure to select “Save All Data”.
+10) In the top toolbar of the Workflow console, toggle the “Flow is OFF” switch to “ON”.
 
 
 ### <span style="text-decoration:underline;">Testing this Flow</span>
 
-1) Create a new user and add the user to AD provisioning group.  
-2) Successful provision to AD triggers an event call to Workflow and manager email is sent.
+1) Create a new user in your Okta tenant and add the user to the AD provisioning group.
+2) Open your flow and view Flow History. You should see a successful flow run.
+3) Validate the manager’s email. They should have received a notification along with the user’s one-time password.
 
 
 ### <span style="text-decoration:underline;">Limitations & Known Issues</span>
-1) Okta workflows does not have any on-premise connector at this time for writing. Provisioning will be through Okta.
+1) Okta workflows does not have any on-premise connector at this time for writing. AD Provisioning will be through Okta.
