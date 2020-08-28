@@ -1,4 +1,4 @@
-# AD-Credential-Delivery
+# Notify Manager with Credentials - AD Provisioning
 
 ### <span style="text-decoration:underline;">Overview</span>
 
