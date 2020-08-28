@@ -1,0 +1,18 @@
+{
+   "name": "Notify-Manager-with-Credentials---AD-Provisioning",
+   "title": "NOTIFY ACTIVE DIRECTORY CREDENTIALS TO MANAGER",
+   "description": "Many organizations use Microsoft Active Directory to manage user credentials. While Okta’s AD integration allows provisioning users to AD, organizations need a solution to communicate the account credentials to the user. When onboarding new hires, companies may need to set up these accounts ahead of time. However, the user may not have system or email access until the day of joining. In these scenarios, companies can email the account credentials to the user’s manager with a one-time password. This template helps demonstrate how to identify users being added to Active Directory.",
+   "connectors": [
+      "okta"
+   ],
+   "links": [
+      {
+         "title": "Video Walk-through",
+         "destination": "https://www.loom.com/share/2da5746acd8942c4ac104cd0bfbeb004"
+      },
+      {
+         "title": "Setup Documentation",
+         "destination": "https://github.com/krishvenkatraman-okta/Notify-Manager-with-Credentials---AD-Provisioning/workflow.flopack"
+      }
+   ]
+}
